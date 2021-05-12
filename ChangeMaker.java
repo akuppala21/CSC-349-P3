@@ -62,7 +62,7 @@ public class ChangeMaker {
         return res;
     }
 
-    public static int[] change_DP(int n, int[] d) {
+    public static int[] change_dP(int n, int[] d) {
 		int k = d.length;
 		int[] c = new int[n+1];
 		int[] a = new int[n+1];
