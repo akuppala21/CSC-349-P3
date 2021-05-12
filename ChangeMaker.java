@@ -63,6 +63,36 @@ public class ChangeMaker {
     }
 
     public static int[] change_dp(int n, int[] d){
-        return new int[0];
+        int[] c = new int[n+1];
+        int[] a = new int[n+1];
+        int[] res = new int[d.length];
+
+        for(int j = 0; j < n+1; j++) {
+            if(j == 0) {
+            c[j] = 0;
+        }
+        else {
+            int min = Integer.MAX_VALUE;
+            int m = 0;
+            for(int i = 0; i < d.length; i++) {
+               if(j-d[i] < 0) continue;
+               if(min > c[j-d[i]]) {
+                  min = c[j-d[i]];
+                  m = i;
+               }
+            }
+            a[j] = m;
+            c[j] = 1 + min;
+            }        
+        }
+
+      int i = n;
+      while(i > 0) {
+         res[a[i]] += 1;
+         i = i - d[a[i]];
+      }
+
+      return res;
+   }
     }
 }
