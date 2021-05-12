@@ -62,37 +62,27 @@ public class ChangeMaker {
         return res;
     }
 
-    public static int[] change_dp(int n, int[] d){
-        int[] c = new int[n+1];
-        int[] a = new int[n+1];
-        int[] res = new int[d.length];
-
-        for(int j = 0; j < n+1; j++) {
-            if(j == 0) {
-            c[j] = 0;
-        }
-        else {
-            int min = Integer.MAX_VALUE;
-            int m = 0;
-            for(int i = 0; i < d.length; i++) {
-               if(j-d[i] < 0) continue;
-               if(min > c[j-d[i]]) {
-                  min = c[j-d[i]];
-                  m = i;
-               }
-            }
-            a[j] = m;
-            c[j] = 1 + min;
-            }        
-        }
-
-      int i = n;
-      while(i > 0) {
-         res[a[i]] += 1;
-         i = i - d[a[i]];
-      }
-
-      return res;
-   }
-    }
-}
+    public static int[] change_DP(int n, int[] d) {
+		int k = d.length;
+		int[] c = new int[n+1];
+		int[] a = new int[n+1];
+		for (int j = 1; j < n+1; j++) {
+			int min = Integer.MAX_VALUE;
+			int savedI = -1;
+			for (int i = 0; i < k; i++) {
+				if ((j - d[i]) < 0) {
+					continue;
+				} else {
+					
+					if (c[j-d[i]] < min) {
+						min = c[j-d[i]];
+						savedI = i;
+					}
+				}
+			}
+			c[j] = 1 + min;
+			a[j] = savedI;
+		}
+		int[] b = getSolution(a, n, d);
+		return b;
+	}
